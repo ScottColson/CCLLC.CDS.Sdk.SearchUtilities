@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>CCLLC.CDS.Sdk.SearchUtilities</AssemblyName>
+    <RootNamespace>CCLLC.CDS.Sdk.Utilities.Search</RootNamespace>
+    <ProjectGuid>{8581260F-7C5C-4FF7-88CA-52693B48B7B6}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets-->
+    <AssemblyOriginatorKeyFile>CCLLC.CDS.Sdk.SearchUtilities.snk</AssemblyOriginatorKeyFile>
+    <Version>1.1.2</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Description>CDS search helpers</Description>
+    <PackageId>CCLLC.CDS.Sdk.SearchUtilities</PackageId>
+    <PackageTags></PackageTags>
+    <Product>CCLLC.CDS.Sdk.SearchUtilities</Product>
+    <Title>CCLLC.CDS.Sdk.SearchUtilities</Title>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <SignAssembly>true</SignAssembly>
+    <OutputType>Library</OutputType>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />
+  
+  <ItemGroup>
+    <None Remove="CustomDictionary.xml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CCLLC.CDS.Sdk" Version="1.4.13" />
+    <PackageReference Include="CCLLC.CDS.Sdk.Data" Version="1.2.0.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.20" />
+  </ItemGroup>
+  
+</Project>
+
+

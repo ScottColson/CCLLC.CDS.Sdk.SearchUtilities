@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata minClientVersion="3.3.0">
+    <id>CCLLC.CDS.Sdk.SearchUtilities.Sources</id>
+    <version>$version$</version>
+    <description>CDS search helpers.</description>
+    <authors>Colson Code, LLC</authors>
+    <owners>Colson Code, LLC</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/ScottColson/CCLLC.CDS.Sdk.SearchUtilities</projectUrl>
+    <tags>D365 CDS Data</tags>
+    <dependencies>
+      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.20" />     
+    </dependencies>
+  </metadata>
+  <files>   
+    <file src="..\CCLLC.CDS.Sdk.SearchUtilities\**\*.cs" target="content/App_Packages/CCLLC.CDS.Sdk.SearchUtilities.$version$/" />
+  </files>
+</package>

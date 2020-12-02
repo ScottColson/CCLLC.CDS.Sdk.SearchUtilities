@@ -1,0 +1,51 @@
+{
+  /* 
+  entitiesToInclude - an optional list of entity logical names to include in the proxy generation. Multiple entity names can be separated by commas 
+  or whitespace. In addition to actual entity logical names, you can specify regex expressions such as ^new_\\S*$ to include entities with 
+  logical names that match the regex expression. You can also specify a wildcard (*). Defaults to no entities.
+  */
+  "entitiesToInclude": "systemuser businessunit account contact customeraddress ^new_\\S*$",
+
+  /*
+  entitiesToExclude - an optional list of entity logical names to specifically exclude. Multiple name separation, regex, and wildcard usage as above.
+  Defaults to wildcard (*) which will exclude any entity that is not specifically specified by name or regex match of the entitiesToInclude setting.
+  */
+  "entitiesToExclude": "*",
+
+  /*
+  actionsToInclude - an optional list of Sdk message names to include in the proxy generation. Multiple name separation, regex, and wildcard usage 
+  as above. Defaults to no Sdk message names.
+  */
+  "actionsToInclude": "new_actionname",
+
+  /*
+  actionsToExclude - an optional list of Sdk message names to specifically exclude. Multiple name separation, regex, and wildcard usage as above.
+  Defaults to wildcard (*) which will exclude any message that is not specifically specified by name or regex match of the actionsToInclude setting.
+  */
+  "actionsToExclude": "*",
+
+  /*
+  templatePath - optional T4 template file name and path, relative to the proxies.json file location. Defaults to ProxyTemplate.t4.
+  */
+  "templatePath": "ProxyTemplate.t4",
+
+  /*
+  outputPath - optional output path, relative to proxies.json file locatin, for generated proxy class files. Defaults to Proxies.
+  */
+  "outputPath": "Proxies",
+
+  /*
+  classNamespace - optional code namespace to use for generated proxies. Defaults to Proxy.
+  */
+  "classNamespace": "Proxy",
+
+  /*
+  targetEndPoint - optional instruction directing which api endpoint to reference when downloading metadata from CDS. Defaults to OrganizationService.
+  */
+  "targetEndPoint": "OrganizationService",
+
+  /*
+  targetLanguage - optional instruction directing target language for generated model components used by the T4 template. Defaults to CSharp.
+  */
+  "targetLanguage": "CSharp"
+}
