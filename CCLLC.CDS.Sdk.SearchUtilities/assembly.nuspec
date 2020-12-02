@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata minClientVersion="3.3.0">
+    <id>CCLLC.CDS.Sdk.SearchUtilities</id>
+    <version>$version$</version>
+    <description>CDS search helpers.</description>
+    <authors>Colson Code, LLC</authors>
+    <owners>Colson Code, LLC</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/ScottColson/CCLLC.CDS.Sdk.SearchUtilities</projectUrl>
+    <tags></tags>
+    <dependencies/>      
+  </metadata>
+  <files>
+    <file src="bin\Release\**\CCLLC.CDS.Sdk.SearchUtilities.dll" target="lib" />
+    <file src="bin\Release\**\CCLLC.CDS.Sdk.SearchUtilities.pdb" target="lib" />
+  </files>
+</package>
