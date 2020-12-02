@@ -14,6 +14,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             private readonly HashSet<string> searchFields = new HashSet<string>();
             private string linkingAttribute;
             private bool includeInactiveRecords;
+            private int topCount = 20;
 
             public QuickFindParentEntity(string fromAttribute = null)
             {
@@ -41,6 +42,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                     ColumnSet = new ColumnSet(targetIdField),
                     Distinct = true,
                     NoLock = true,
+                    TopCount = topCount,
                     LinkEntities =
                     {
                         new LinkEntity
@@ -103,19 +105,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 var columns = anonymousTypeInitializer.GetAttributeNamesArray<TParent>();
                 return SearchFields(columns);
             }
-
-            public IQuickFindParentEntity<TTarget, TParent> LinkedByField(string linkingAttribute)
-            {
-                this.linkingAttribute = linkingAttribute;
-                return this;
-            }            
-
-            public IQuickFindParentEntity<TTarget, TParent> LinkedByField(Expression<Func<TTarget, object>> anonymousTypeInitializer)
-            {
-                var columns = anonymousTypeInitializer.GetAttributeNamesArray<TTarget>();
-                return LinkedByField(columns[0]);
-            }
-
+                       
             public IQuickFindParentEntity<TTarget, TParent> IncludeInactiveRecords()
             {
                 includeInactiveRecords = true;
@@ -128,6 +118,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             private readonly HashSet<string> searchFields = new HashSet<string>();
             private string linkingAttribute;
             private bool includeInactiveRecords;
+            private int topCount = 20;
 
             public QuickFindChildEntity(string toAttribute = null)
             {
@@ -153,6 +144,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 {
                     EntityName = targetLogicalName,
                     ColumnSet = new ColumnSet(targetIdField),
+                    TopCount = topCount,
                     Distinct = true,
                     NoLock = true,
                     Criteria = new FilterExpression
@@ -221,19 +213,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             {
                 var columns = anonymousTypeInitializer.GetAttributeNamesArray<TChild>();
                 return SearchFields(columns);
-            }
-
-            public IQuickFindChildEntity<TTarget, TChild> LinkedByField(string linkingAttribute)
-            {
-                this.linkingAttribute = linkingAttribute;
-                return this;
-            }
-
-            public IQuickFindChildEntity<TTarget, TChild> LinkedByField(Expression<Func<TChild, object>> anonymousTypeInitializer)
-            {
-                var columns = anonymousTypeInitializer.GetAttributeNamesArray<TChild>();
-                return LinkedByField(columns[0]);
-            }
+            }            
 
             public IQuickFindChildEntity<TTarget, TChild> IncludeInactiveRecords()
             {
