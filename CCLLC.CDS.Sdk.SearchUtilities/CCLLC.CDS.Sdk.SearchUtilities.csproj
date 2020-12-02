@@ -25,7 +25,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <OutputType>Library</OutputType>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

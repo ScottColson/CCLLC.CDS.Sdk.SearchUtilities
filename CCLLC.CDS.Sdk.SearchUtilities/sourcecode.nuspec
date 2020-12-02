@@ -15,6 +15,8 @@
     </dependencies>
   </metadata>
   <files>   
-    <file src="..\CCLLC.CDS.Sdk.SearchUtilities\**\*.cs" target="content/App_Packages/CCLLC.CDS.Sdk.SearchUtilities.$version$/" />
+    <file src="..\CCLLC.CDS.Sdk.SearchUtilities\*.cs" target="content/App_Packages/CCLLC.CDS.Sdk.SearchUtilities.$version$/" />
+    <file src="..\CCLLC.CDS.Sdk.SearchUtilities\Interfaces\*.cs" target="content/App_Packages/CCLLC.CDS.Sdk.SearchUtilities.$version$/" />
+    <file src="..\CCLLC.CDS.Sdk.SearchUtilities\QuerySignatures\*.cs" target="content/App_Packages/CCLLC.CDS.Sdk.SearchUtilities.$version$/" />
   </files>
 </package>
