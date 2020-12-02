@@ -38,8 +38,9 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: NuGetCommand@2
+- task: NuGetCommand@2  
   displayName: 'Pack Source'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
   inputs:
     command: 'pack'
     packagesToPack: '**/sourcecode.nuspec'
@@ -48,6 +49,7 @@ steps:
 
 - task: NuGetCommand@2
   displayName: 'Pack Assembly'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
   inputs:
     command: 'pack'
     packagesToPack: '**/assembly.nuspec'
@@ -56,6 +58,7 @@ steps:
 
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
 
 - task: NuGetCommand@2
   displayName: 'NuGet Push Artifact Packages'
@@ -68,6 +71,7 @@ steps:
 
 - task: CopyFiles@2
   displayName: 'Copy DevOps Artifacts to Artifact Staging'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'DeploymentPackage/temp/packed/?(*.zip)'
@@ -76,6 +80,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifacts to Pipeline'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
