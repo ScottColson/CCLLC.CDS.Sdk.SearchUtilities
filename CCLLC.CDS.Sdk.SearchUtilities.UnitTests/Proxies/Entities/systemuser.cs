@@ -107,8 +107,6 @@ namespace Proxy
 			public const string CalendarId = "calendarid";
 			public const string CALType = "caltype";
 			public const string CALTypeName = "caltypename";
-			public const string CdmCompany = "cdm_company";
-			public const string CdmCompanyName = "cdm_companyname";
 			public const string CreatedBy = "createdby";
 			public const string CreatedByName = "createdbyname";
 			public const string CreatedByYomiName = "createdbyyominame";
@@ -634,19 +632,6 @@ namespace Proxy
 		public virtual string CALTypeName
 		{
 			get => GetPropertyValue<string>("caltypename"); 
-		}
-
-		[AttributeLogicalName("cdm_company")]
-		public virtual EntityReference CdmCompany
-		{
-			get => GetPropertyValue<EntityReference>("cdm_company"); 
-			set => SetPropertyValue("cdm_company", value); 
-		}
-
-		[AttributeLogicalName("cdm_companyname")]
-		public virtual string CdmCompanyName
-		{
-			get => GetPropertyValue<string>("cdm_companyname"); 
 		}
 
 		[AttributeLogicalName("createdby")]
@@ -1386,7 +1371,6 @@ namespace Proxy
 	}
 
 
-	
 	
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]

@@ -29,17 +29,17 @@ namespace Proxy
 		public enum eAddress1AddressTypeCode { BillTo=1,  ShipTo=2,  Primary=3,  Other=4, }
 		public enum eAddress1FreightTermsCode { FOB=1,  NoCharge=2, }
 		public enum eAddress1ShippingMethodCode { Airborne=1,  DHL=2,  FedEx=3,  UPS=4,  PostalMail=5,  FullLoad=6,  WillCall=7, }
-		public enum eAddress2AddressTypeCode { BillTo=1,  ShipTo=2,  Primary=3,  Other=4, }
+		public enum eAddress2AddressTypeCode { DefaultValue=1, }
 		public enum eAddress2FreightTermsCode { DefaultValue=1, }
 		public enum eAddress2ShippingMethodCode { DefaultValue=1, }
-		public enum eAddress3AddressTypeCode { BillTo=1,  ShipTo=2,  Primary=3,  Other=4, }
+		public enum eAddress3AddressTypeCode { DefaultValue=1, }
 		public enum eAddress3FreightTermsCode { DefaultValue=1, }
 		public enum eAddress3ShippingMethodCode { DefaultValue=1, }
 		public enum eCustomerSizeCode { DefaultValue=1, }
 		public enum eCustomerTypeCode { DefaultValue=1, }
 		public enum eEducationCode { DefaultValue=1, }
-		public enum eFamilyStatusCode { None=192350000,  Single=1,  Married=2,  Divorced=3,  Widowed=4, }
-		public enum eGenderCode { NonSpecifc=192350000,  Unknown=192350001,  Unspecified=3,  Male=1,  Female=2, }
+		public enum eFamilyStatusCode { Single=1,  Married=2,  Divorced=3,  Widowed=4, }
+		public enum eGenderCode { Male=1,  Female=2, }
 		public enum eHasChildrenCode { DefaultValue=1, }
 		public enum eLeadSourceCode { DefaultValue=1, }
 		public enum eMsdynOrgchangestatus { NoFeedback=0,  NotAtCompany=1,  Ignore=2, }
@@ -47,7 +47,6 @@ namespace Proxy
 		public enum ePreferredAppointmentDayCode { Sunday=0,  Monday=1,  Tuesday=2,  Wednesday=3,  Thursday=4,  Friday=5,  Saturday=6, }
 		public enum ePreferredAppointmentTimeCode { Morning=1,  Afternoon=2,  Evening=3, }
 		public enum ePreferredContactMethodCode { Any=1,  Email=2,  Phone=3,  Fax=4,  Mail=5, }
-		public enum ePsContactType { Billing=717790002,  HR=717790003,  Patient=717790000,  Physician=717790001, }
 		public enum eShippingMethodCode { DefaultValue=1, }
 		public enum eStateCode { Active=0,  Inactive=1, }
 		public enum eStatusCode { Active=1,  Inactive=2, }
@@ -262,64 +261,10 @@ namespace Proxy
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-			public const string MsdynAccountnumber = "msdyn_accountnumber";
-			public const string MsdynAccountnumberName = "msdyn_accountnumbername";
-			public const string MsdynAccountnumberYomiName = "msdyn_accountnumberyominame";
-			public const string MsdynCompany = "msdyn_company";
-			public const string MsdynCompanyName = "msdyn_companyname";
-			public const string MsdynContactfor = "msdyn_contactfor";
-			public const string MsdynContactforvendor = "msdyn_contactforvendor";
-			public const string MsdynContactforvendorName = "msdyn_contactforvendorname";
-			public const string MsdynContactnumber = "msdyn_contactnumber";
-			public const string MsdynContactpersonid = "msdyn_contactpersonid";
-			public const string MsdynCustomergroupid = "msdyn_customergroupid";
-			public const string MsdynCustomergroupidName = "msdyn_customergroupidname";
-			public const string MsdynCustomerpaymentmethod = "msdyn_customerpaymentmethod";
-			public const string MsdynCustomerpaymentmethodName = "msdyn_customerpaymentmethodname";
-			public const string MsdynEmailaddress1description = "msdyn_emailaddress1description";
-			public const string MsdynFaxdescription = "msdyn_faxdescription";
-			public const string MsdynFaxextension = "msdyn_faxextension";
 			public const string MsdynGdproptout = "msdyn_gdproptout";
 			public const string MsdynGdproptoutName = "msdyn_gdproptoutname";
-			public const string MsdynIdentificationnumber = "msdyn_identificationnumber";
-			public const string MsdynIsvendor = "msdyn_isvendor";
-			public const string MsdynIsvendorName = "msdyn_isvendorname";
-			public const string MsdynLanguage = "msdyn_language";
-			public const string MsdynLanguageName = "msdyn_languagename";
-			public const string MsdynLinkedvendoraccount = "msdyn_linkedvendoraccount";
-			public const string MsdynLinkedvendoraccountName = "msdyn_linkedvendoraccountname";
 			public const string MsdynOrgchangestatus = "msdyn_orgchangestatus";
 			public const string MsdynOrgchangestatusName = "msdyn_orgchangestatusname";
-			public const string MsdynPartycountry = "msdyn_partycountry";
-			public const string MsdynPartynumber = "msdyn_partynumber";
-			public const string MsdynPartystateprovince = "msdyn_partystateprovince";
-			public const string MsdynPaymentday = "msdyn_paymentday";
-			public const string MsdynPaymentdayName = "msdyn_paymentdayname";
-			public const string MsdynPaymentschedule = "msdyn_paymentschedule";
-			public const string MsdynPaymentscheduleName = "msdyn_paymentschedulename";
-			public const string MsdynPaymentterms = "msdyn_paymentterms";
-			public const string MsdynPaymenttermsName = "msdyn_paymenttermsname";
-			public const string MsdynPrimaryfacebookdescription = "msdyn_primaryfacebookdescription";
-			public const string MsdynPrimaryfacebookID = "msdyn_primaryfacebookid";
-			public const string MsdynPrimaryinkedInid = "msdyn_primaryinkedinid";
-			public const string MsdynPrimarylinkedIndescrption = "msdyn_primarylinkedindescrption";
-			public const string MsdynPrimarytwitterid = "msdyn_primarytwitterid";
-			public const string MsdynPrimarytwitteriddescription = "msdyn_primarytwitteriddescription";
-			public const string MsdynSalestaxgroup = "msdyn_salestaxgroup";
-			public const string MsdynSalestaxgroupName = "msdyn_salestaxgroupname";
-			public const string MsdynSellable = "msdyn_sellable";
-			public const string MsdynSellableName = "msdyn_sellablename";
-			public const string MsdynTelephone1description = "msdyn_telephone1description";
-			public const string MsdynTelephone1extension = "msdyn_telephone1extension";
-			public const string MsdynVendorcontactid = "msdyn_vendorcontactid";
-			public const string MsdynVendorcontactidName = "msdyn_vendorcontactidname";
-			public const string MsdynVendorcreatedbyworkflow = "msdyn_vendorcreatedbyworkflow";
-			public const string MsdynVendorcreatedbyworkflowName = "msdyn_vendorcreatedbyworkflowname";
-			public const string MsdynVendorgroup = "msdyn_vendorgroup";
-			public const string MsdynVendorgroupName = "msdyn_vendorgroupname";
-			public const string MsdynVendorpaymentmethod = "msdyn_vendorpaymentmethod";
-			public const string MsdynVendorpaymentmethodName = "msdyn_vendorpaymentmethodname";
-			public const string MsdynWebsiteurldescription = "msdyn_websiteurldescription";
 			public const string NickName = "nickname";
 			public const string NumberOfChildren = "numberofchildren";
 			public const string OnHoldTime = "onholdtime";
@@ -335,11 +280,8 @@ namespace Proxy
 			public const string OwningTeam = "owningteam";
 			public const string OwningUser = "owninguser";
 			public const string Pager = "pager";
-			public const string ParentContactid = "parent_contactid";
 			public const string ParentContactId = "parentcontactid";
-			public const string ParentContactidName = "parent_contactidname";
 			public const string ParentContactIdName = "parentcontactidname";
-			public const string ParentContactidYomiName = "parent_contactidyominame";
 			public const string ParentContactIdYomiName = "parentcontactidyominame";
 			public const string ParentCustomerId = "parentcustomerid";
 			public const string ParentCustomerIdName = "parentcustomeridname";
@@ -363,19 +305,6 @@ namespace Proxy
 			public const string PreferredSystemUserIdName = "preferredsystemuseridname";
 			public const string PreferredSystemUserIdYomiName = "preferredsystemuseridyominame";
 			public const string ProcessId = "processid";
-			public const string PsAddress1EPPID = "ps_address1eppid";
-			public const string PsAddress2EPPID = "ps_address2eppid";
-			public const string PsAddress3EPPID = "ps_address3eppid";
-			public const string PsAge = "ps_age";
-			public const string PsBillingAddressEppId = "ps_billingaddress_eppid";
-			public const string PsContactType = "ps_contacttype";
-			public const string PsContacttypeName = "ps_contacttypename";
-			public const string PsDiffIndays = "ps_diffindays";
-			public const string PsDOB = "ps_dob";
-			public const string PsDOBthisyear = "ps_dobthisyear";
-			public const string PsEPPID = "ps_eppid";
-			public const string PsLanguage = "ps_language";
-			public const string PsLanguageName = "ps_languagename";
 			public const string Salutation = "salutation";
 			public const string ShippingMethodCode = "shippingmethodcode";
 			public const string ShippingMethodCodeName = "shippingmethodcodename";
@@ -1748,119 +1677,6 @@ namespace Proxy
 			get => GetPropertyValue<string>("modifiedonbehalfbyyominame"); 
 		}
 
-		[AttributeLogicalName("msdyn_accountnumber")]
-		public virtual EntityReference MsdynAccountnumber
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_accountnumber"); 
-			set => SetPropertyValue("msdyn_accountnumber", value); 
-		}
-
-		[AttributeLogicalName("msdyn_accountnumbername")]
-		public virtual string MsdynAccountnumberName
-		{
-			get => GetPropertyValue<string>("msdyn_accountnumbername"); 
-		}
-
-		[AttributeLogicalName("msdyn_accountnumberyominame")]
-		public virtual string MsdynAccountnumberYomiName
-		{
-			get => GetPropertyValue<string>("msdyn_accountnumberyominame"); 
-		}
-
-		[AttributeLogicalName("msdyn_company")]
-		public virtual EntityReference MsdynCompany
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_company"); 
-			set => SetPropertyValue("msdyn_company", value); 
-		}
-
-		[AttributeLogicalName("msdyn_companyname")]
-		public virtual string MsdynCompanyName
-		{
-			get => GetPropertyValue<string>("msdyn_companyname"); 
-		}
-
-		[AttributeLogicalName("msdyn_contactfor")]
-		public virtual string MsdynContactfor
-		{
-			get => GetPropertyValue<string>("msdyn_contactfor"); 
-			set => SetPropertyValue("msdyn_contactfor", value); 
-		}
-
-		[AttributeLogicalName("msdyn_contactforvendor")]
-		public virtual bool? MsdynContactforvendor
-		{
-			get => GetPropertyValue<bool?>("msdyn_contactforvendor"); 
-			set => SetPropertyValue("msdyn_contactforvendor", value); 
-		}
-
-		[AttributeLogicalName("msdyn_contactforvendorname")]
-		public virtual string MsdynContactforvendorName
-		{
-			get => GetPropertyValue<string>("msdyn_contactforvendorname"); 
-		}
-
-		[AttributeLogicalName("msdyn_contactnumber")]
-		public virtual string MsdynContactnumber
-		{
-			get => GetPropertyValue<string>("msdyn_contactnumber"); 
-			set => SetPropertyValue("msdyn_contactnumber", value); 
-		}
-
-		[AttributeLogicalName("msdyn_contactpersonid")]
-		public virtual string MsdynContactpersonid
-		{
-			get => GetPropertyValue<string>("msdyn_contactpersonid"); 
-			set => SetPropertyValue("msdyn_contactpersonid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_customergroupid")]
-		public virtual EntityReference MsdynCustomergroupid
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_customergroupid"); 
-			set => SetPropertyValue("msdyn_customergroupid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_customergroupidname")]
-		public virtual string MsdynCustomergroupidName
-		{
-			get => GetPropertyValue<string>("msdyn_customergroupidname"); 
-		}
-
-		[AttributeLogicalName("msdyn_customerpaymentmethod")]
-		public virtual EntityReference MsdynCustomerpaymentmethod
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_customerpaymentmethod"); 
-			set => SetPropertyValue("msdyn_customerpaymentmethod", value); 
-		}
-
-		[AttributeLogicalName("msdyn_customerpaymentmethodname")]
-		public virtual string MsdynCustomerpaymentmethodName
-		{
-			get => GetPropertyValue<string>("msdyn_customerpaymentmethodname"); 
-		}
-
-		[AttributeLogicalName("msdyn_emailaddress1description")]
-		public virtual string MsdynEmailaddress1description
-		{
-			get => GetPropertyValue<string>("msdyn_emailaddress1description"); 
-			set => SetPropertyValue("msdyn_emailaddress1description", value); 
-		}
-
-		[AttributeLogicalName("msdyn_faxdescription")]
-		public virtual string MsdynFaxdescription
-		{
-			get => GetPropertyValue<string>("msdyn_faxdescription"); 
-			set => SetPropertyValue("msdyn_faxdescription", value); 
-		}
-
-		[AttributeLogicalName("msdyn_faxextension")]
-		public virtual string MsdynFaxextension
-		{
-			get => GetPropertyValue<string>("msdyn_faxextension"); 
-			set => SetPropertyValue("msdyn_faxextension", value); 
-		}
-
 		[AttributeLogicalName("msdyn_gdproptout")]
 		public virtual bool? MsdynGdproptout
 		{
@@ -1874,52 +1690,6 @@ namespace Proxy
 			get => GetPropertyValue<string>("msdyn_gdproptoutname"); 
 		}
 
-		[AttributeLogicalName("msdyn_identificationnumber")]
-		public virtual string MsdynIdentificationnumber
-		{
-			get => GetPropertyValue<string>("msdyn_identificationnumber"); 
-			set => SetPropertyValue("msdyn_identificationnumber", value); 
-		}
-
-		[AttributeLogicalName("msdyn_isvendor")]
-		public virtual bool? MsdynIsvendor
-		{
-			get => GetPropertyValue<bool?>("msdyn_isvendor"); 
-			set => SetPropertyValue("msdyn_isvendor", value); 
-		}
-
-		[AttributeLogicalName("msdyn_isvendorname")]
-		public virtual string MsdynIsvendorName
-		{
-			get => GetPropertyValue<string>("msdyn_isvendorname"); 
-		}
-
-		[AttributeLogicalName("msdyn_language")]
-		public virtual GlobalEnums.eMsdynLanguage? MsdynLanguage
-		{
-			get => (GlobalEnums.eMsdynLanguage?)GetPropertyValue<OptionSetValue>("msdyn_language")?.Value;
-			set => SetPropertyValue("msdyn_language", value is null ? null : new OptionSetValue((int)value)); 
-		}
-
-		[AttributeLogicalName("msdyn_languagename")]
-		public virtual string MsdynLanguageName
-		{
-			get => GetPropertyValue<string>("msdyn_languagename"); 
-		}
-
-		[AttributeLogicalName("msdyn_linkedvendoraccount")]
-		public virtual EntityReference MsdynLinkedvendoraccount
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_linkedvendoraccount"); 
-			set => SetPropertyValue("msdyn_linkedvendoraccount", value); 
-		}
-
-		[AttributeLogicalName("msdyn_linkedvendoraccountname")]
-		public virtual string MsdynLinkedvendoraccountName
-		{
-			get => GetPropertyValue<string>("msdyn_linkedvendoraccountname"); 
-		}
-
 		[AttributeLogicalName("msdyn_orgchangestatus")]
 		public virtual eMsdynOrgchangestatus? MsdynOrgchangestatus
 		{
@@ -1931,207 +1701,6 @@ namespace Proxy
 		public virtual string MsdynOrgchangestatusName
 		{
 			get => GetPropertyValue<string>("msdyn_orgchangestatusname"); 
-		}
-
-		[AttributeLogicalName("msdyn_partycountry")]
-		public virtual string MsdynPartycountry
-		{
-			get => GetPropertyValue<string>("msdyn_partycountry"); 
-			set => SetPropertyValue("msdyn_partycountry", value); 
-		}
-
-		[AttributeLogicalName("msdyn_partynumber")]
-		public virtual string MsdynPartynumber
-		{
-			get => GetPropertyValue<string>("msdyn_partynumber"); 
-			set => SetPropertyValue("msdyn_partynumber", value); 
-		}
-
-		[AttributeLogicalName("msdyn_partystateprovince")]
-		public virtual string MsdynPartystateprovince
-		{
-			get => GetPropertyValue<string>("msdyn_partystateprovince"); 
-			set => SetPropertyValue("msdyn_partystateprovince", value); 
-		}
-
-		[AttributeLogicalName("msdyn_paymentday")]
-		public virtual EntityReference MsdynPaymentday
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_paymentday"); 
-			set => SetPropertyValue("msdyn_paymentday", value); 
-		}
-
-		[AttributeLogicalName("msdyn_paymentdayname")]
-		public virtual string MsdynPaymentdayName
-		{
-			get => GetPropertyValue<string>("msdyn_paymentdayname"); 
-		}
-
-		[AttributeLogicalName("msdyn_paymentschedule")]
-		public virtual EntityReference MsdynPaymentschedule
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_paymentschedule"); 
-			set => SetPropertyValue("msdyn_paymentschedule", value); 
-		}
-
-		[AttributeLogicalName("msdyn_paymentschedulename")]
-		public virtual string MsdynPaymentscheduleName
-		{
-			get => GetPropertyValue<string>("msdyn_paymentschedulename"); 
-		}
-
-		[AttributeLogicalName("msdyn_paymentterms")]
-		public virtual EntityReference MsdynPaymentterms
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_paymentterms"); 
-			set => SetPropertyValue("msdyn_paymentterms", value); 
-		}
-
-		[AttributeLogicalName("msdyn_paymenttermsname")]
-		public virtual string MsdynPaymenttermsName
-		{
-			get => GetPropertyValue<string>("msdyn_paymenttermsname"); 
-		}
-
-		[AttributeLogicalName("msdyn_primaryfacebookdescription")]
-		public virtual string MsdynPrimaryfacebookdescription
-		{
-			get => GetPropertyValue<string>("msdyn_primaryfacebookdescription"); 
-			set => SetPropertyValue("msdyn_primaryfacebookdescription", value); 
-		}
-
-		[AttributeLogicalName("msdyn_primaryfacebookid")]
-		public virtual string MsdynPrimaryfacebookID
-		{
-			get => GetPropertyValue<string>("msdyn_primaryfacebookid"); 
-			set => SetPropertyValue("msdyn_primaryfacebookid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_primaryinkedinid")]
-		public virtual string MsdynPrimaryinkedInid
-		{
-			get => GetPropertyValue<string>("msdyn_primaryinkedinid"); 
-			set => SetPropertyValue("msdyn_primaryinkedinid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_primarylinkedindescrption")]
-		public virtual string MsdynPrimarylinkedIndescrption
-		{
-			get => GetPropertyValue<string>("msdyn_primarylinkedindescrption"); 
-			set => SetPropertyValue("msdyn_primarylinkedindescrption", value); 
-		}
-
-		[AttributeLogicalName("msdyn_primarytwitterid")]
-		public virtual string MsdynPrimarytwitterid
-		{
-			get => GetPropertyValue<string>("msdyn_primarytwitterid"); 
-			set => SetPropertyValue("msdyn_primarytwitterid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_primarytwitteriddescription")]
-		public virtual string MsdynPrimarytwitteriddescription
-		{
-			get => GetPropertyValue<string>("msdyn_primarytwitteriddescription"); 
-			set => SetPropertyValue("msdyn_primarytwitteriddescription", value); 
-		}
-
-		[AttributeLogicalName("msdyn_salestaxgroup")]
-		public virtual EntityReference MsdynSalestaxgroup
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_salestaxgroup"); 
-			set => SetPropertyValue("msdyn_salestaxgroup", value); 
-		}
-
-		[AttributeLogicalName("msdyn_salestaxgroupname")]
-		public virtual string MsdynSalestaxgroupName
-		{
-			get => GetPropertyValue<string>("msdyn_salestaxgroupname"); 
-		}
-
-		[AttributeLogicalName("msdyn_sellable")]
-		public virtual bool? MsdynSellable
-		{
-			get => GetPropertyValue<bool?>("msdyn_sellable"); 
-			set => SetPropertyValue("msdyn_sellable", value); 
-		}
-
-		[AttributeLogicalName("msdyn_sellablename")]
-		public virtual string MsdynSellableName
-		{
-			get => GetPropertyValue<string>("msdyn_sellablename"); 
-		}
-
-		[AttributeLogicalName("msdyn_telephone1description")]
-		public virtual string MsdynTelephone1description
-		{
-			get => GetPropertyValue<string>("msdyn_telephone1description"); 
-			set => SetPropertyValue("msdyn_telephone1description", value); 
-		}
-
-		[AttributeLogicalName("msdyn_telephone1extension")]
-		public virtual string MsdynTelephone1extension
-		{
-			get => GetPropertyValue<string>("msdyn_telephone1extension"); 
-			set => SetPropertyValue("msdyn_telephone1extension", value); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorcontactid")]
-		public virtual EntityReference MsdynVendorcontactid
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_vendorcontactid"); 
-			set => SetPropertyValue("msdyn_vendorcontactid", value); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorcontactidname")]
-		public virtual string MsdynVendorcontactidName
-		{
-			get => GetPropertyValue<string>("msdyn_vendorcontactidname"); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorcreatedbyworkflow")]
-		public virtual bool? MsdynVendorcreatedbyworkflow
-		{
-			get => GetPropertyValue<bool?>("msdyn_vendorcreatedbyworkflow"); 
-			set => SetPropertyValue("msdyn_vendorcreatedbyworkflow", value); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorcreatedbyworkflowname")]
-		public virtual string MsdynVendorcreatedbyworkflowName
-		{
-			get => GetPropertyValue<string>("msdyn_vendorcreatedbyworkflowname"); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorgroup")]
-		public virtual EntityReference MsdynVendorgroup
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_vendorgroup"); 
-			set => SetPropertyValue("msdyn_vendorgroup", value); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorgroupname")]
-		public virtual string MsdynVendorgroupName
-		{
-			get => GetPropertyValue<string>("msdyn_vendorgroupname"); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorpaymentmethod")]
-		public virtual EntityReference MsdynVendorpaymentmethod
-		{
-			get => GetPropertyValue<EntityReference>("msdyn_vendorpaymentmethod"); 
-			set => SetPropertyValue("msdyn_vendorpaymentmethod", value); 
-		}
-
-		[AttributeLogicalName("msdyn_vendorpaymentmethodname")]
-		public virtual string MsdynVendorpaymentmethodName
-		{
-			get => GetPropertyValue<string>("msdyn_vendorpaymentmethodname"); 
-		}
-
-		[AttributeLogicalName("msdyn_websiteurldescription")]
-		public virtual string MsdynWebsiteurldescription
-		{
-			get => GetPropertyValue<string>("msdyn_websiteurldescription"); 
-			set => SetPropertyValue("msdyn_websiteurldescription", value); 
 		}
 
 		[AttributeLogicalName("nickname")]
@@ -2231,35 +1800,16 @@ namespace Proxy
 			set => SetPropertyValue("pager", value); 
 		}
 
-		[AttributeLogicalName("parent_contactid")]
-		public virtual EntityReference ParentContactid
-		{
-			get => GetPropertyValue<EntityReference>("parent_contactid"); 
-			set => SetPropertyValue("parent_contactid", value); 
-		}
-
 		[AttributeLogicalName("parentcontactid")]
 		public virtual EntityReference ParentContactId
 		{
 			get => GetPropertyValue<EntityReference>("parentcontactid"); 
 		}
 
-		[AttributeLogicalName("parent_contactidname")]
-		public virtual string ParentContactidName
-		{
-			get => GetPropertyValue<string>("parent_contactidname"); 
-		}
-
 		[AttributeLogicalName("parentcontactidname")]
 		public virtual string ParentContactIdName
 		{
 			get => GetPropertyValue<string>("parentcontactidname"); 
-		}
-
-		[AttributeLogicalName("parent_contactidyominame")]
-		public virtual string ParentContactidYomiName
-		{
-			get => GetPropertyValue<string>("parent_contactidyominame"); 
 		}
 
 		[AttributeLogicalName("parentcontactidyominame")]
@@ -2409,92 +1959,6 @@ namespace Proxy
 		{
 			get => GetPropertyValue<Guid>("processid"); 
 			set => SetPropertyValue("processid", value); 
-		}
-
-		[AttributeLogicalName("ps_address1eppid")]
-		public virtual string PsAddress1EPPID
-		{
-			get => GetPropertyValue<string>("ps_address1eppid"); 
-			set => SetPropertyValue("ps_address1eppid", value); 
-		}
-
-		[AttributeLogicalName("ps_address2eppid")]
-		public virtual string PsAddress2EPPID
-		{
-			get => GetPropertyValue<string>("ps_address2eppid"); 
-			set => SetPropertyValue("ps_address2eppid", value); 
-		}
-
-		[AttributeLogicalName("ps_address3eppid")]
-		public virtual string PsAddress3EPPID
-		{
-			get => GetPropertyValue<string>("ps_address3eppid"); 
-			set => SetPropertyValue("ps_address3eppid", value); 
-		}
-
-		[AttributeLogicalName("ps_age")]
-		public virtual int? PsAge
-		{
-			get => GetPropertyValue<int?>("ps_age"); 
-		}
-
-		[AttributeLogicalName("ps_billingaddress_eppid")]
-		public virtual string PsBillingAddressEppId
-		{
-			get => GetPropertyValue<string>("ps_billingaddress_eppid"); 
-			set => SetPropertyValue("ps_billingaddress_eppid", value); 
-		}
-
-		[AttributeLogicalName("ps_contacttype")]
-		public virtual ePsContactType? PsContactType
-		{
-			get => (ePsContactType?)GetPropertyValue<OptionSetValue>("ps_contacttype")?.Value;
-			set => SetPropertyValue("ps_contacttype", value is null ? null : new OptionSetValue((int)value)); 
-		}
-
-		[AttributeLogicalName("ps_contacttypename")]
-		public virtual string PsContacttypeName
-		{
-			get => GetPropertyValue<string>("ps_contacttypename"); 
-		}
-
-		[AttributeLogicalName("ps_diffindays")]
-		public virtual int? PsDiffIndays
-		{
-			get => GetPropertyValue<int?>("ps_diffindays"); 
-		}
-
-		[AttributeLogicalName("ps_dob")]
-		public virtual DateTime? PsDOB
-		{
-			get => GetPropertyValue<DateTime?>("ps_dob"); 
-			set => SetPropertyValue("ps_dob", value); 
-		}
-
-		[AttributeLogicalName("ps_dobthisyear")]
-		public virtual DateTime? PsDOBthisyear
-		{
-			get => GetPropertyValue<DateTime?>("ps_dobthisyear"); 
-		}
-
-		[AttributeLogicalName("ps_eppid")]
-		public virtual string PsEPPID
-		{
-			get => GetPropertyValue<string>("ps_eppid"); 
-			set => SetPropertyValue("ps_eppid", value); 
-		}
-
-		[AttributeLogicalName("ps_language")]
-		public virtual GlobalEnums.ePsLanguages? PsLanguage
-		{
-			get => (GlobalEnums.ePsLanguages?)GetPropertyValue<OptionSetValue>("ps_language")?.Value;
-			set => SetPropertyValue("ps_language", value is null ? null : new OptionSetValue((int)value)); 
-		}
-
-		[AttributeLogicalName("ps_languagename")]
-		public virtual string PsLanguageName
-		{
-			get => GetPropertyValue<string>("ps_languagename"); 
 		}
 
 		[AttributeLogicalName("salutation")]
@@ -2771,16 +2235,6 @@ namespace Proxy
 	}
 
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-	[AttributeLogicalName("parent_contactid")]
-	[RelationshipSchemaName("contact_parent_contact")]
-	public Contact contact_parent_contact
-	{
-		get { return this.GetRelatedEntity<Contact>("contact_parent_contact",null); }
-	}
-
-
 	
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
@@ -2823,27 +2277,6 @@ namespace Proxy
 	}
 
 
-	
-	
-	
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-	[AttributeLogicalName("msdyn_accountnumber")]
-	[RelationshipSchemaName("msdyn_account_contact_AccountNumber")]
-	public Account msdyn_account_contact_AccountNumber
-	{
-		get { return this.GetRelatedEntity<Account>("msdyn_account_contact_AccountNumber",null); }
-	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
