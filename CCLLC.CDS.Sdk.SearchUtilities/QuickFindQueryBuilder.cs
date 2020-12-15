@@ -21,11 +21,11 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 linkingAttribute = fromAttribute;
             }
 
-            public IList<Guid> GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
             {
                 if (linkingAttribute.Length == 0 || searchFields.Count == 0)
                 {
-                    return new List<Guid>();
+                    return Array.Empty<Guid>();
                 }
 
                 var targetLogicalName = new TTarget().LogicalName;
@@ -84,7 +84,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToList();
+                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
             }
 
             public IQuickFindParentEntity<TTarget, TParent> SearchFields(params string[] fields)
@@ -125,11 +125,11 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 linkingAttribute = toAttribute;
             }
 
-            public IList<Guid> GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
             {
                 if (linkingAttribute.Length == 0 || searchFields.Count == 0)
                 {
-                    return new List<Guid>();
+                    return Array.Empty<Guid>();
                 }
 
                 var targetLogicalName = new TTarget().LogicalName;
@@ -193,7 +193,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToList();
+                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
             }
 
             public IQuickFindChildEntity<TTarget, TChild> SearchFields(params string[] fields)
@@ -231,15 +231,14 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 QueryExpressionBuilder = queryExpressionBuilder;
             }
 
-            public IList<Guid> GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
             {
-                var qry = QueryExpressionBuilder
-                    .Select(cols => cols.Id)
+                var qry = QueryExpressionBuilder                    
                     .WithSearchValue(searchTerm)
                     .Build();
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToList();
+                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
             }
         }
 
@@ -280,7 +279,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
         public IQuickFindQueryBuilder<TEntity> FluentQuerySearch(Action<IQueryExpressionBuilder<TEntity>> expression)
         {
-            var qryExpressionBuilder = new QueryExpressionBuilder<TEntity>();
+            var qryExpressionBuilder = new QueryExpressionBuilder<TEntity>().Select(cols => new { cols.Id });
             expression(qryExpressionBuilder);
             linkedEntities.Add(new QuickFindQueryExpressionBuilder<TEntity>(qryExpressionBuilder));
             return this;
@@ -323,7 +322,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             foreach (var linkedEntity in linkedEntities)
             {
                 var linkedIds = linkedEntity.GetLinkedIds(executionContext, searchTerm);
-                if (linkedIds.Count > 0)
+                if (linkedIds.Length > 0)
                 {
                     linkedEntityFilter.AddCondition(new ConditionExpression(targetEntityIdField, ConditionOperator.In, linkedIds));
                 }
