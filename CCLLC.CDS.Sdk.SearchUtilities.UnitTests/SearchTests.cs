@@ -53,10 +53,10 @@ namespace CCLLC.CDS.Sdk.SearchUtilities.UnitTest
                 // generate a qry that looks like a quickfind query
                 var qry = new QueryExpressionBuilder<Contact>()
                     .Select(cols => new { cols.Id, cols.FullName })
-                    .WhereAll(e => e
-                        .QuickFind()
+                    .WhereAll(e => e                        
                         .IsActive()                        
                         .WhereAny(e2 => e2
+                            .QuickFind()
                             .Attribute(Contact.Fields.FullName).IsLike(TestData.SearchTerm)))
                     .Build();
                
@@ -123,10 +123,10 @@ namespace CCLLC.CDS.Sdk.SearchUtilities.UnitTest
                 // generate a qry that looks like a quickfind query
                 var qry = new QueryExpressionBuilder<Account>()
                     .Select(cols => new { cols.Id })
-                    .WhereAll(e => e
-                        .QuickFind()
+                    .WhereAll(e => e                        
                         .IsActive()
                         .WhereAny(e2 => e2
+                            .QuickFind()
                             .Attribute(Account.Fields.Name).IsLike(TestData.SearchTerm)))
                     .Build();
 
