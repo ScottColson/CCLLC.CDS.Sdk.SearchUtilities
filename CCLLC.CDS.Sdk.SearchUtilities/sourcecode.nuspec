@@ -12,8 +12,8 @@
     <tags>D365 CDS Data</tags>
     <dependencies>
       <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.20" />
-      <dependancy id="CCLLC.CDS.Sdk.Sources" version="1.4.13" />
-      <dependancy id="CCLLC.CDS.Sdk.Data.Sources" version="1.2.0.9" />
+      <dependency id="CCLLC.CDS.Sdk.Sources" version="1.4.13" />
+      <dependency id="CCLLC.CDS.Sdk.Data.Sources" version="1.2.0.9" />
     </dependencies>
   </metadata>
   <files>   

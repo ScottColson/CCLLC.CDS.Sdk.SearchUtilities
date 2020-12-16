@@ -125,8 +125,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
         public static IList<ISearchQuerySignature> GetDefaultSearchSignatures()
         {
             IList<ISearchQuerySignature> list = new List<ISearchQuerySignature>();
-
-            list.Add(new AndClauseWithQuickFind());
+                        
             list.Add(new OrClauseWithQuickFind());
             return list;
         }
