@@ -324,7 +324,13 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
         public IQuickFindQueryBuilder<TEntity> AddSearchSignature(ISearchQuerySignature signature)
         {
-            throw new NotImplementedException();
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(AddSearchSignature)}";
+            executionContext.Trace($"Entered - {processName}");
+
+            searchSignatures.Add(signature);
+            
+            executionContext.Trace($"Exiting {processName} - Completed");
+            return this;
         }
 
         public QueryExpression Build()
