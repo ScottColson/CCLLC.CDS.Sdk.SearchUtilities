@@ -116,12 +116,12 @@ namespace CCLLC.CDS.Sdk.SearchUtilities.UnitTest.Fakes
 
         public void Trace(string message, params object[] args)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void Trace(eSeverityLevel severityLevel, string message, params object[] args)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void TrackEvent(string name)

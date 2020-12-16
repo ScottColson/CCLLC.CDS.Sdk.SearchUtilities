@@ -70,7 +70,6 @@ namespace Proxy
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-			public const string MsdynLocationid = "msdyn_locationid";
 			public const string Name = "name";
 			public const string ObjectTypeCode = "objecttypecode";
 			public const string ObjectTypeCodeName = "objecttypecodename";
@@ -316,13 +315,6 @@ namespace Proxy
 		public virtual string ModifiedOnBehalfByYomiName
 		{
 			get => GetPropertyValue<string>("modifiedonbehalfbyyominame"); 
-		}
-
-		[AttributeLogicalName("msdyn_locationid")]
-		public virtual string MsdynLocationid
-		{
-			get => GetPropertyValue<string>("msdyn_locationid"); 
-			set => SetPropertyValue("msdyn_locationid", value); 
 		}
 
 		[AttributeLogicalName("name")]

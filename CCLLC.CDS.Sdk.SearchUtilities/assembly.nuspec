@@ -10,7 +10,11 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ScottColson/CCLLC.CDS.Sdk.SearchUtilities</projectUrl>
     <tags></tags>
-    <dependencies/>      
+    <dependencies>
+      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.20" />
+      <dependancy id="CCLLC.CDS.Sdk" version="1.4.13" />
+      <dependancy id="CCLLC.CDS.Sdk.Data" version="1.2.0.9" />
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\**\CCLLC.CDS.Sdk.SearchUtilities.dll" target="lib" />
