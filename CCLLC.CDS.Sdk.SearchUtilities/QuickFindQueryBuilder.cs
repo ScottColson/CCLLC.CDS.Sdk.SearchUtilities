@@ -22,9 +22,13 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             }
 
             public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
-            {
+            {                
+                var processName = $"{nameof(QuickFindParentEntity<TTarget, TParent>)}.{nameof(GetLinkedIds)}";
+                executionContext.Trace($"Entered {processName}");
+
                 if (linkingAttribute.Length == 0 || searchFields.Count == 0)
                 {
+                    executionContext.Trace($"Exiting {processName} - No search fields or linking attribute.");
                     return Array.Empty<Guid>();
                 }
 
@@ -74,6 +78,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 // join active records.
                 if (!includeInactiveRecords)
                 {
+                    executionContext.Trace($"{processName}: Filtering on active records.");
                     qry.LinkEntities[0].LinkCriteria.Conditions.Add(new ConditionExpression("statecode", ConditionOperator.Equal, 0));
                 }
 
@@ -84,7 +89,11 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+
+                executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
+                return ids;
+            
             }
 
             public IQuickFindParentEntity<TTarget, TParent> SearchFields(params string[] fields)
@@ -127,8 +136,12 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
             {
+                var processName = $"{nameof(QuickFindChildEntity<TTarget, TChild>)}.{nameof(GetLinkedIds)}";
+                executionContext.Trace($"Entered {processName}");
+
                 if (linkingAttribute.Length == 0 || searchFields.Count == 0)
                 {
+                    executionContext.Trace($"Exiting {processName} - No search fields or linking attribute.");
                     return Array.Empty<Guid>();
                 }
 
@@ -178,7 +191,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                         }
                     }
                 };
-
+                
                 // unless inactive parents are excluded then add a condition to the criteria to only
                 // get active records.
                 if (!includeInactiveRecords)
@@ -193,7 +206,10 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+
+                executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
+                return ids;
             }
 
             public IQuickFindChildEntity<TTarget, TChild> SearchFields(params string[] fields)
@@ -223,7 +239,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
         }
 
         private class QuickFindQueryExpressionBuilder<TTarget> : IQuickFindLinkedEntity where TTarget : Entity
-        {
+        {   
             IQueryExpressionBuilder<TTarget> QueryExpressionBuilder;
 
             public QuickFindQueryExpressionBuilder(IQueryExpressionBuilder<TTarget> queryExpressionBuilder)
@@ -233,12 +249,18 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
             {
+                var processName = $"{nameof(QuickFindQueryExpressionBuilder<TTarget>)}.{nameof(GetLinkedIds)}";
+                executionContext.Trace($"Entered {processName}");
+
                 var qry = QueryExpressionBuilder                    
                     .WithSearchValue(searchTerm)
                     .Build();
 
                 // execute the query and return a list of target ids found.
-                return executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+
+                executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
+                return ids;
             }
         }
 
@@ -263,25 +285,40 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
         public IQuickFindQueryBuilder<TEntity> SearchParent<TParent>(string fromAttribute, Action<IQuickFindParentEntity<TEntity, TParent>> expression) where TParent : Entity, new()
         {
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(SearchParent)}";
+            executionContext.Trace($"Entered {processName}");
+
             var linkedParent = new QuickFindParentEntity<TEntity, TParent>(fromAttribute);
             expression(linkedParent);
             linkedEntities.Add(linkedParent);
+
+            executionContext.Trace($"Exiting {processName} - Completed.");
             return this;
         }        
 
         public IQuickFindQueryBuilder<TEntity> SearchChildren<TChild>(string toAttribute, Action<IQuickFindChildEntity<TEntity, TChild>> expression) where TChild : Entity, new()
         {
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(SearchChildren)}";
+            executionContext.Trace($"Entered {processName}");
+
             var linkedChild = new QuickFindChildEntity<TEntity, TChild>(toAttribute);
             expression(linkedChild);
             linkedEntities.Add(linkedChild);
+
+            executionContext.Trace($"Exiting {processName} - Completed.");
             return this;
         }
 
         public IQuickFindQueryBuilder<TEntity> FluentQuerySearch(Action<IQueryExpressionBuilder<TEntity>> expression)
         {
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(FluentQuerySearch)}";
+            executionContext.Trace($"Entered {processName}");
+
             var qryExpressionBuilder = new QueryExpressionBuilder<TEntity>().Select(cols => new { cols.Id });
             expression(qryExpressionBuilder);
             linkedEntities.Add(new QuickFindQueryExpressionBuilder<TEntity>(qryExpressionBuilder));
+
+            executionContext.Trace($"Exiting {processName} - Completed.");
             return this;
         }
 
@@ -292,14 +329,19 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
         public QueryExpression Build()
         {
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(Build)}";
+            executionContext.Trace($"Entered {processName}");
+
             if (sourceQueryExpresion.EntityName != targetEntityLogicalName)
             {
+                executionContext.Trace($"Exiting {processName} - Query not for {targetEntityLogicalName} entity.");
                 return sourceQueryExpresion;
             }
 
             // return input query if it does not look like a search query filter
             if (!Helpers.MatchesSearchFilterSignature(sourceQueryExpresion.Criteria, searchSignatures))
             {
+                executionContext.Trace($"Exiting {processName} - Query does not match filter signature");
                 return sourceQueryExpresion;
             }
 
@@ -307,16 +349,23 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             if (!Helpers.TryGetSearchTerm(sourceQueryExpresion.Criteria, out searchTerm))
             {
+                executionContext.Trace($"Exiting {processName} - Could not locate search term.");
                 return sourceQueryExpresion;
             }
 
             var linkedEntityFilter = GenerateLinkedEntityFilter(searchTerm);
 
-            return GenerateEnhancedQuery(sourceQueryExpresion, linkedEntityFilter);
+            var replacementQuery = GenerateEnhancedQuery(sourceQueryExpresion, linkedEntityFilter);
+
+            executionContext.Trace($"Exiting {processName} - Completed.");
+            return replacementQuery;
         }
 
         private FilterExpression GenerateLinkedEntityFilter(string searchTerm)
         {
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(GenerateLinkedEntityFilter)}";
+            executionContext.Trace($"Entered {processName}");
+
             var linkedEntityFilter = new FilterExpression(LogicalOperator.Or);
 
             foreach (var linkedEntity in linkedEntities)
@@ -324,18 +373,25 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 var linkedIds = linkedEntity.GetLinkedIds(executionContext, searchTerm);
                 if (linkedIds.Length > 0)
                 {
+                    executionContext.Trace($"{processName}: Adding search condition for {linkedIds.Length} records found through expanded search.");
                     linkedEntityFilter.AddCondition(new ConditionExpression(targetEntityIdField, ConditionOperator.In, linkedIds));
                 }
             }
 
+            executionContext.Trace($"Exiting {processName} - Completed.");
             return linkedEntityFilter;
         }
 
         private QueryExpression GenerateEnhancedQuery(QueryExpression sourceQuery, FilterExpression linkedEntityFilter)
         {
-            
+            var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(GenerateEnhancedQuery)}";
+            executionContext.Trace($"Entered {processName}");
+
             if (linkedEntityFilter is null || linkedEntityFilter.Conditions.Count <= 0)
+            {
+                executionContext.Trace($"Exiting {processName} - Linked Entity Filter does not contain any conditions, Returning source query.");
                 return sourceQuery;
+            }
 
             var replacementQuery = new QueryExpression()
             {
@@ -361,6 +417,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             // https://msdn.microsoft.com/en-us/library/gg328300.aspx
             Helpers.ClearQuickFindFlags(replacementQuery.Criteria);
 
+            executionContext.Trace($"Exiting {processName} - Completed.");
             return replacementQuery;
         }
                
