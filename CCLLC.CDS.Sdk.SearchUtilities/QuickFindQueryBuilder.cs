@@ -406,6 +406,13 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 Distinct = true
             };
 
+            // copy all existing linked entities from the source query
+            foreach(var linkedEntity in sourceQuery.LinkEntities)
+            {
+                replacementQuery.LinkEntities.Add(linkedEntity);
+            }
+
+            // copy all existing sort orders from the source query
             foreach (var columnOrder in sourceQueryExpresion.Orders)
             {
                 replacementQuery.AddOrder(columnOrder.AttributeName, columnOrder.OrderType);
