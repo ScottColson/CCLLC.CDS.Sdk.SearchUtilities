@@ -21,7 +21,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 linkingAttribute = fromAttribute;
             }
 
-            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm, bool useElevatedAccess)
             {                
                 var processName = $"{nameof(QuickFindParentEntity<TTarget, TParent>)}.{nameof(GetLinkedIds)}";
                 executionContext.Trace($"Entered {processName}");
@@ -89,7 +89,8 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var orgService = useElevatedAccess ? executionContext.ElevatedOrganizationService : executionContext.OrganizationService;
+                var ids = orgService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
 
                 executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
                 return ids;
@@ -134,7 +135,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 linkingAttribute = toAttribute;
             }
 
-            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm, bool useElevatedAccess)
             {
                 var processName = $"{nameof(QuickFindChildEntity<TTarget, TChild>)}.{nameof(GetLinkedIds)}";
                 executionContext.Trace($"Entered {processName}");
@@ -206,7 +207,8 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 }
 
                 // execute the query and return a list of target ids found.
-                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var orgService = useElevatedAccess ? executionContext.ElevatedOrganizationService : executionContext.OrganizationService;
+                var ids = orgService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
 
                 executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
                 return ids;
@@ -247,7 +249,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 QueryExpressionBuilder = queryExpressionBuilder;
             }
 
-            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm)
+            public Guid[] GetLinkedIds(ICDSExecutionContext executionContext, string searchTerm, bool useElevatedAccess)
             {
                 var processName = $"{nameof(QuickFindQueryExpressionBuilder<TTarget>)}.{nameof(GetLinkedIds)}";
                 executionContext.Trace($"Entered {processName}");
@@ -257,7 +259,8 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                     .Build();
 
                 // execute the query and return a list of target ids found.
-                var ids = executionContext.OrganizationService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
+                var orgService = useElevatedAccess ? executionContext.ElevatedOrganizationService : executionContext.OrganizationService;
+                var ids = orgService.RetrieveMultiple(qry).Entities.Select(e => e.Id).ToArray();
 
                 executionContext.Trace($"Exiting {processName} - Returning {ids.Length} record ids.");
                 return ids;
@@ -270,8 +273,16 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
         private readonly string targetEntityIdField;
         private readonly IList<IQuickFindLinkedEntity> linkedEntities;
         private readonly IList<ISearchQuerySignature> searchSignatures;
-        
-        public QuickFindQueryBuilder(ICDSExecutionContext executionContext, QueryExpression sourceQueryExpression)
+        private readonly bool useElevatedAccess;
+
+        /// <summary>
+        /// Builder to enhance the passed in search filter by simulating a union with the results of additional
+        /// queries defined in the builder.
+        /// </summary>
+        /// <param name="executionContext"></param>
+        /// <param name="sourceQueryExpression">The source query</param>
+        /// <param name="useElevatedAccess">Will execute the additional defined queries as system user.</param>
+        public QuickFindQueryBuilder(ICDSExecutionContext executionContext, QueryExpression sourceQueryExpression, bool useElevatedAccess = false)
         {
             this.executionContext = executionContext ?? throw new ArgumentNullException(nameof(executionContext));
             this.sourceQueryExpresion = sourceQueryExpression ?? throw new ArgumentNullException(nameof(sourceQueryExpression));
@@ -281,6 +292,8 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             this.linkedEntities = new List<IQuickFindLinkedEntity>();
             this.searchSignatures = new List<ISearchQuerySignature>();
+
+            this.useElevatedAccess = useElevatedAccess;
         }
 
         public IQuickFindQueryBuilder<TEntity> SearchParent<TParent>(string fromAttribute, Action<IQuickFindParentEntity<TEntity, TParent>> expression) where TParent : Entity, new()
@@ -376,7 +389,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             foreach (var linkedEntity in linkedEntities)
             {
-                var linkedIds = linkedEntity.GetLinkedIds(executionContext, searchTerm);
+                var linkedIds = linkedEntity.GetLinkedIds(executionContext, searchTerm, useElevatedAccess);
                 if (linkedIds.Length > 0)
                 {
                     executionContext.Trace($"{processName}: Adding search condition for {linkedIds.Length} records found through expanded search.");
