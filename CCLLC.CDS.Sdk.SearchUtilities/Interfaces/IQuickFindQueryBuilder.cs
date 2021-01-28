@@ -10,6 +10,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
         IQuickFindQueryBuilder<TEntity> SearchChildren<TChild>(string toAttribute, Action<IQuickFindChildEntity<TEntity, TChild>> expression) where TChild : Entity, new();
         IQuickFindQueryBuilder<TEntity> FluentQuerySearch(Action<IQueryExpressionBuilder<TEntity>> expression);
         IQuickFindQueryBuilder<TEntity> AddSearchSignature(ISearchQuerySignature signature);
+        IQuickFindQueryBuilder<TEntity> LimitSearchToParentFilter();
         QueryExpression Build();
     }
 }

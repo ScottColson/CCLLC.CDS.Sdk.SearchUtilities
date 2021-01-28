@@ -133,19 +133,29 @@ namespace CCLLC.CDS.Sdk.SearchUtilities.UnitTest
                 var modifiedQuery = new QuickFindQueryBuilder<Account>(executionContext, qry)
                     .SearchChildren<Contact>(Contact.Fields.ParentCustomerId, p => p
                         .SearchFields(cols => new { cols.FirstName, cols.LastName, cols.FullName }))
+                    .LimitSearchToParentFilter()
                     .Build();
 
+                
                 Assert.AreEqual(qry.ColumnSet, modifiedQuery.ColumnSet);
                 Assert.IsFalse(modifiedQuery.Criteria.IsQuickFindFilter);
 
-                Assert.AreEqual(LogicalOperator.Or, modifiedQuery.Criteria.FilterOperator);
-                Assert.AreEqual(2, modifiedQuery.Criteria.Filters.Count);
+                // Top level filter not modified
+                Assert.AreEqual(LogicalOperator.And, modifiedQuery.Criteria.FilterOperator);
+                Assert.AreEqual(1, modifiedQuery.Criteria.Conditions.Count);
+                Assert.AreEqual(1, modifiedQuery.Criteria.Filters.Count);
 
-                var linkedFilter = modifiedQuery.Criteria.Filters[1];
+                // Quick find child filter conditions not modified
+                var quickFindFilter = modifiedQuery.Criteria.Filters[0];
+                Assert.AreEqual(LogicalOperator.Or, quickFindFilter.FilterOperator);
+                Assert.AreEqual(1, quickFindFilter.Conditions.Count);
+                Assert.AreEqual(ConditionOperator.Like, quickFindFilter.Conditions[0].Operator);
+
+                // Linked entity filter added to quick find filter
+                var linkedFilter = quickFindFilter.Filters[0];
                 Assert.AreEqual(LogicalOperator.Or, linkedFilter.FilterOperator);
                 Assert.AreEqual(1, linkedFilter.Conditions.Count);
                 Assert.AreEqual(ConditionOperator.In, linkedFilter.Conditions[0].Operator);
-
 
                 //verify query parses correctly
                 var records = service.RetrieveMultiple(modifiedQuery);
