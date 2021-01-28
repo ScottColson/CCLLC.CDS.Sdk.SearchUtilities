@@ -274,6 +274,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
         private readonly IList<IQuickFindLinkedEntity> linkedEntities;
         private readonly IList<ISearchQuerySignature> searchSignatures;
         private readonly bool useElevatedAccess;
+        private bool searchInFilter;
 
         /// <summary>
         /// Builder to enhance the passed in search filter by simulating a union with the results of additional
@@ -294,6 +295,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             this.searchSignatures = new List<ISearchQuerySignature>();
 
             this.useElevatedAccess = useElevatedAccess;
+            this.searchInFilter = false;
         }
 
         public IQuickFindQueryBuilder<TEntity> SearchParent<TParent>(string fromAttribute, Action<IQuickFindParentEntity<TEntity, TParent>> expression) where TParent : Entity, new()
@@ -346,6 +348,12 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             return this;
         }
 
+        public IQuickFindQueryBuilder<TEntity> LimitSearchToParentFilter()
+        {
+            this.searchInFilter = true;
+            return this;
+        }
+
         public QueryExpression Build()
         {
             var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(Build)}";
@@ -374,7 +382,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
 
             var linkedEntityFilter = GenerateLinkedEntityFilter(searchTerm);
 
-            var replacementQuery = GenerateEnhancedQuery(sourceQueryExpresion, linkedEntityFilter);
+            var replacementQuery = GenerateEnhancedQuery(sourceQueryExpresion, linkedEntityFilter, searchInFilter);
 
             executionContext.Trace($"Exiting {processName} - Completed.");
             return replacementQuery;
@@ -401,7 +409,7 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             return linkedEntityFilter;
         }
 
-        private QueryExpression GenerateEnhancedQuery(QueryExpression sourceQuery, FilterExpression linkedEntityFilter)
+        private QueryExpression GenerateEnhancedQuery(QueryExpression sourceQuery, FilterExpression linkedEntityFilter, bool addLinkedFilterToQuickFind)
         {
             var processName = $"{nameof(QuickFindQueryBuilder<TEntity>)}.{nameof(GenerateEnhancedQuery)}";
             executionContext.Trace($"Entered {processName}");
@@ -431,12 +439,26 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
                 replacementQuery.AddOrder(columnOrder.AttributeName, columnOrder.OrderType);
             }
 
-            replacementQuery.Criteria = new FilterExpression(LogicalOperator.Or)
-            {                
-            };
+            if (addLinkedFilterToQuickFind)
+            {
+                // Search within results limited by existing filter criteria - add linked entity filter
+                // to the "Quick Find Or Filter"
+                replacementQuery.Criteria = sourceQueryExpresion.Criteria;
 
-            replacementQuery.Criteria.AddFilter(sourceQueryExpresion.Criteria);
-            replacementQuery.Criteria.AddFilter(linkedEntityFilter);
+                FilterExpression quickFindFilter = null;
+                if(Helpers.TryGetQuickFindFilter(replacementQuery.Criteria, out quickFindFilter))
+                {
+                    quickFindFilter.AddFilter(linkedEntityFilter);
+                }
+
+            }
+            else
+            {
+                // Full entity search - set replacement query to existing criteria OR linked entity filter
+                replacementQuery.Criteria = new FilterExpression(LogicalOperator.Or);               
+                replacementQuery.Criteria.AddFilter(sourceQueryExpresion.Criteria);
+                replacementQuery.Criteria.AddFilter(linkedEntityFilter);
+            }
 
             // Remove any quickfind flags in the filter to avoid blocks based 
             // on setting of Organization.QuickFindRecordLimitEnabled flag. See

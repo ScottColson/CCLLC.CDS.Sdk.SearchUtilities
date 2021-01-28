@@ -130,6 +130,26 @@ namespace CCLLC.CDS.Sdk.Utilities.Search
             return list;
         }
 
+        public static bool TryGetQuickFindFilter(FilterExpression parentFilter, out FilterExpression quickFindFilter)
+        {
+            quickFindFilter = null;
+            if (parentFilter is null) return false;
+
+            if (parentFilter.IsQuickFindFilter && parentFilter.FilterOperator == LogicalOperator.Or)
+            {
+                quickFindFilter = parentFilter;
+                return true;
+            }
+
+            // recursively search child filters
+            foreach(var childFilter in parentFilter.Filters)
+            {   
+                if (TryGetQuickFindFilter(childFilter, out quickFindFilter)) return true;
+            }
+
+            return false;
+        } 
+
         public static bool TryGetSearchTerm(FilterExpression filterExpression, out string searchTerm)
         {           
             foreach (var condition in filterExpression.Conditions)
